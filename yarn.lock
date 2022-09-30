@@ -1091,6 +1091,11 @@
     minimatch "^3.1.2"
     strip-json-comments "^3.1.1"
 
+"@expo-google-fonts/orbitron@^0.2.2":
+  version "0.2.2"
+  resolved "https://registry.yarnpkg.com/@expo-google-fonts/orbitron/-/orbitron-0.2.2.tgz#f5516b08cf8fdfad1733cf9bc83d1e4b6891db3f"
+  integrity sha512-QsDOb3AOUqoM2l5eonr/m4hByiwp0MuJrgRUpmTNcYfK6oc3+JDsUqnHbLazMZjBBHAUf+iJky7t7KG3oW4yMg==
+
 "@expo/bunyan@4.0.0", "@expo/bunyan@^4.0.0":
   version "4.0.0"
   resolved "https://registry.npmjs.org/@expo/bunyan/-/bunyan-4.0.0.tgz"
