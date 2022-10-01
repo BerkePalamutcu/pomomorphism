@@ -1,10 +1,10 @@
-import { StyleSheet, TouchableHighlight } from 'react-native';
-import { View, Text } from 'react-native';
+import { TouchableHighlight } from 'react-native';
+import { View } from 'react-native';
 import React from 'react';
 import { Icon } from '@rneui/base';
-
+import { BottomBarStyles } from './bottomBar.styles';
 const BottomBar = () => {
-  const iconSize = 40;
+  const iconSize = 30;
   return (
     <View style={BottomBarStyles.BottomBarContainer}>
       <View style={BottomBarStyles.BottomBarIconsContainer}>
@@ -51,25 +51,3 @@ const BottomBar = () => {
 
 export default BottomBar;
 
-const BottomBarStyles = StyleSheet.create({
-  BottomBarContainer: {
-    display: 'flex',
-    position: 'absolute',
-    color: '#fff',
-    bottom: 10,
-    left: 0,
-  },
-  BottomBarIconsContainer: {
-    display: 'flex',
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    width: 300,
-  },
-  BottomBarIconsWrapper: {
-    backgroundColor: 'black',
-    display: 'flex',
-    padding: 10,
-    opacity: 1,
-    borderRadius: 20,
-  },
-});
