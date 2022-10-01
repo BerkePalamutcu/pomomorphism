@@ -1,0 +1,68 @@
+import { StyleSheet } from "react-native";
+export const TimerStyles = StyleSheet.create({
+    timerContainer: {
+      width: 320,
+      height: 320,
+      borderRadius: 160,
+      justifyContent: 'center',
+      display: 'flex',
+      alignItems: 'center',
+      backgroundColor: 'black',
+      borderEndWidth: 2,
+      borderStartWidth: 2,
+      borderStartColor: '#949494',
+      borderEndColor: '#949494',
+      elevation: 10,
+      shadowColor: '#000',
+      shadowOffset: {
+        width: 8,
+        height: 8,
+      },
+      shadowOpacity: 0.4,
+      shadowRadius: 11,
+    },
+    mainContainer: {
+      display: 'flex',
+      justifyContent: 'center',
+      alignItems: 'center',
+    },
+    timerFont: {
+      fontFamily: 'Orbitron_500Medium',
+      fontSize: 50,
+      color: 'white',
+    },
+    playBtn: {
+      justifyContent: 'center',
+      alignItems: 'center',
+      display: 'flex',
+      flexDirection: 'row',
+    },
+    btnContainer: {
+      width: 80,
+      display: 'flex',
+      justifyContent: 'center',
+      backgroundColor: 'black',
+      borderRadius: 40,
+      marginLeft: 10,
+      marginRight: 10,
+      borderColor: '#949494',
+      borderWidth: 1,
+    },
+    btnContainerPlay: {
+      width: 80,
+      display: 'flex',
+      justifyContent: 'center',
+      backgroundColor: '#ffffff',
+      borderRadius: 40,
+      marginLeft: 10,
+      marginRight: 10,
+      borderColor: 'black',
+      borderWidth: 2,
+    },
+    iconsContainer: {
+      display: 'flex',
+      flexDirection: 'row',
+      marginTop: 30,
+    },
+  });
+  
