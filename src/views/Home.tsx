@@ -2,15 +2,24 @@ import { ImageBackground, StyleSheet, View } from 'react-native';
 import React from 'react';
 import Timer from '../components/Timer/Timer';
 import BottomBar from '../components/bottomBar/BottomBar';
+import CurrentSession from '../components/currentSession/CurrentSession';
+import Menu from '../components/menu/Menu';
 
-const IMG_URL = { uri : 'https://newevolutiondesigns.com/images/freebies/4k-space-ipad-wallpaper-6.jpg'}
+const IMG_URL = {
+  uri: 'https://newevolutiondesigns.com/images/freebies/4k-space-ipad-wallpaper-6.jpg',
+};
 
 const Home: React.FC = () => {
   return (
-    <ImageBackground style={homePageStyles.container} source={IMG_URL} resizeMode="cover">
+    <ImageBackground
+      style={homePageStyles.container}
+      source={IMG_URL}
+      resizeMode="cover"
+    >
       <View style={homePageStyles.container}>
+        <CurrentSession />
         <Timer />
-        <BottomBar/>
+        <Menu />
       </View>
     </ImageBackground>
   );
@@ -25,6 +34,6 @@ const homePageStyles = StyleSheet.create({
     justifyContent: 'center',
     flex: 1,
     display: 'flex',
-    position: 'relative'
+    position: 'relative',
   },
 });

@@ -3,8 +3,8 @@ export const currentSessionStyles = StyleSheet.create({
     sessionsContainer: {
       display: 'flex',
       flexDirection: 'row',
-      position: 'absolute',
-      top: 80,
+      marginBottom: 50,
+      marginTop: 50
     },
     sessionWrapper: {
       paddingTop: 5,

@@ -3,8 +3,10 @@ import { View } from 'react-native';
 import React from 'react';
 import { Icon } from '@rneui/base';
 import { BottomBarStyles } from './bottomBar.styles';
-const BottomBar = () => {
+import { useNavigation } from '@react-navigation/native';
+const BottomBar: React.FC = ()=> {
   const iconSize = 30;
+  const navigation: any = useNavigation();
   return (
     <View style={BottomBarStyles.BottomBarContainer}>
       <View style={BottomBarStyles.BottomBarIconsContainer}>
@@ -38,7 +40,7 @@ const BottomBar = () => {
         <View style={BottomBarStyles.BottomBarIconsWrapper}>
           <TouchableHighlight
             onPress={() => {
-              null;
+              navigation.openDrawer();
             }}
           >
             <Icon name="settings" color="#fff" size={iconSize} />
@@ -50,4 +52,3 @@ const BottomBar = () => {
 };
 
 export default BottomBar;
-
