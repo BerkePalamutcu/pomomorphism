@@ -1,18 +1,21 @@
 import React from 'react';
-import { View, TouchableHighlight } from 'react-native';
+import { View, TouchableHighlight, Text } from 'react-native';
 import { Icon } from '@rneui/base';
 import { Orbitron_500Medium, useFonts } from '@expo-google-fonts/orbitron';
 import { TimerStyles } from './timer.styles';
 import CircularProgress from 'react-native-circular-progress-indicator';
+import { LinearGradient } from 'expo-linear-gradient';
+import * as SplashScreen from 'expo-splash-screen';
+
+
+SplashScreen.preventAutoHideAsync();
 
 const Timer: React.FC = () => {
+  const iconSize = 50;
   const defaultTime = 25 * 60; // 25 minutes
+
   const [count, setCount] = React.useState(defaultTime);
   const [active, setActive] = React.useState(false);
-
-  const [fontsLoaded, error] = useFonts({
-    Orbitron_500Medium,
-  });
 
   const minutes: number = React.useMemo(() => {
     return Math.floor(count / 60);
@@ -22,7 +25,9 @@ const Timer: React.FC = () => {
     return Math.floor(count % 60);
   }, [count]);
 
-  const iconSize = 50;
+  const toggleTimer = React.useCallback(() => {
+    setActive(!active);
+  }, [active]);
 
   React.useEffect(() => {
     if (active) {
@@ -41,57 +46,79 @@ const Timer: React.FC = () => {
     }
   }, [active, count]);
 
-  const toggleTimer = React.useCallback(() => {
-    setActive(!active);
-  }, [active]);
+  const [fontsLoaded] = useFonts({
+    Orbitron_500Medium,
+  });
+
+  const onLayoutRootView = React.useCallback(async () => {
+    if (fontsLoaded) {
+      await SplashScreen.hideAsync();
+    }
+  }, [fontsLoaded]);
+
+  if (!fontsLoaded) {
+    return null;
+  }
 
   const resetTimer = () => {
     setActive(false);
     setCount(defaultTime);
   };
+
   //TODO: STYLE ISIMLERINI DEGISTIR
   return (
-    <View style={TimerStyles.mainContainer}>
+    <View style={TimerStyles.mainContainer} onLayout={() => onLayoutRootView()}>
       <View style={TimerStyles.timerContainer}>
+        <Text style={TimerStyles.timerFont}>
+          {' '}
+          {`${String(minutes).padStart(2, '0')}`} :{' '}
+          {`${String(seconds).padStart(2, '0')}`}{' '}
+        </Text>
         <CircularProgress
+          showProgressValue={false}
           inActiveStrokeColor="#5c5c5c"
           inActiveStrokeOpacity={0.4}
           inActiveStrokeWidth={15}
           activeStrokeWidth={15}
           activeStrokeColor="#48cae4"
-          progressValueStyle={TimerStyles.timerFont}
           clockwise={false}
-          radius={156}
+          radius={160}
           value={count}
           maxValue={defaultTime}
-          progressFormatter={() => {
-            'worklet';
-            return `${String(minutes).padStart(2, '0')} : ${String(
-              seconds
-            ).padStart(2, '0')}`; // 2 decimal places
-          }}
-        />
+          progressValueColor="white"
+        ></CircularProgress>
       </View>
+
       <View style={TimerStyles.iconsContainer}>
-          <TouchableHighlight
-            style={TimerStyles.btnContainerPlay}
-            onPress={() => {
-              toggleTimer();
-            }}
+        <TouchableHighlight
+          style={TimerStyles.btnContainerPlay}
+          onPress={() => {
+            toggleTimer();
+          }}
+        >
+          <LinearGradient
+            style={TimerStyles.gradient}
+            colors={['#00B4DB', '#0083B0']}
           >
             <Icon
               name={active ? 'pause' : 'play-arrow'}
-              color={active ? '#E8630A' : 'green'}
+              color="white"
               size={iconSize}
             />
-          </TouchableHighlight>
+          </LinearGradient>
+        </TouchableHighlight>
         <TouchableHighlight
           style={TimerStyles.btnContainer}
           onPress={() => {
             resetTimer();
           }}
         >
-            <Icon name="refresh" color="red" size={iconSize} />
+          <LinearGradient
+            style={TimerStyles.gradient}
+            colors={['#ED213A', '#93291E']}
+          >
+            <Icon name="refresh" color="white" size={iconSize} />
+          </LinearGradient>
         </TouchableHighlight>
       </View>
     </View>

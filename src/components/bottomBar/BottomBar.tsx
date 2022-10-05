@@ -4,7 +4,7 @@ import React from 'react';
 import { Icon } from '@rneui/base';
 import { BottomBarStyles } from './bottomBar.styles';
 import { useNavigation } from '@react-navigation/native';
-const BottomBar: React.FC = ()=> {
+const BottomBar: React.FC = () => {
   const iconSize = 30;
   const navigation: any = useNavigation();
   return (
@@ -13,7 +13,7 @@ const BottomBar: React.FC = ()=> {
         <View style={BottomBarStyles.BottomBarIconsWrapper}>
           <TouchableHighlight
             onPress={() => {
-              null;
+              navigation.navigate('Home');
             }}
           >
             <Icon name="timer" color="#fff" size={iconSize} />
@@ -22,7 +22,7 @@ const BottomBar: React.FC = ()=> {
         <View style={BottomBarStyles.BottomBarIconsWrapper}>
           <TouchableHighlight
             onPress={() => {
-              null;
+              navigation.navigate('Todos');
             }}
           >
             <Icon name="list" color="#fff" size={iconSize} />
@@ -31,7 +31,7 @@ const BottomBar: React.FC = ()=> {
         <View style={BottomBarStyles.BottomBarIconsWrapper}>
           <TouchableHighlight
             onPress={() => {
-              null;
+              navigation.navigate('Statistics');
             }}
           >
             <Icon name="bar-chart" color="#fff" size={iconSize} />
@@ -40,7 +40,7 @@ const BottomBar: React.FC = ()=> {
         <View style={BottomBarStyles.BottomBarIconsWrapper}>
           <TouchableHighlight
             onPress={() => {
-              navigation.openDrawer();
+              navigation.navigate('Settings');
             }}
           >
             <Icon name="settings" color="#fff" size={iconSize} />
