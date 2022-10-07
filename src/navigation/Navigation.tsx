@@ -13,10 +13,18 @@ const Navigation: React.FC = () => {
   return (
     <NavigationContainer>
       <Stack.Navigator
-        screenOptions={{ headerShown: true}}
+        screenOptions={{
+          headerShown: true,
+          headerStyle: { backgroundColor: '#151414' },
+          headerTintColor: '#fff',
+        }}
         initialRouteName="Home"
       >
-        <Stack.Screen name="Home" component={Home} />
+        <Stack.Screen
+          name="Home"
+          component={Home}
+          options={{ headerShown: false }}
+        />
         <Stack.Screen name="Settings" component={Settings} />
         <Stack.Screen name="Todos" component={Todos} />
         <Stack.Screen name="Statistics" component={Statistics} />
