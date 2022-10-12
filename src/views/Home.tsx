@@ -30,7 +30,7 @@ const Home: React.FC = () => {
 
     <TouchableWithoutFeedback
       onPress={() =>
-        setTimeout(() => NavigationBar.setVisibilityAsync('hidden'), 5000)
+        setTimeout(() => NavigationBar.setVisibilityAsync('hidden'), 2000)
       }
     >
       <View style={homePageStyles.container}>

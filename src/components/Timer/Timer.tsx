@@ -6,28 +6,60 @@ import { TimerStyles } from './timer.styles';
 import CircularProgress from 'react-native-circular-progress-indicator';
 import { LinearGradient } from 'expo-linear-gradient';
 import * as SplashScreen from 'expo-splash-screen';
-
+import { useAppSelector, useAppDispatch } from '../../redux/hooks';
+import { sessionCounter, setSessions, sessionReplacer } from '../../redux/slices/timerSlice';
 
 SplashScreen.preventAutoHideAsync();
 
 const Timer: React.FC = () => {
   const iconSize = 50;
-  const defaultTime = 25 * 60; // 25 minutes
+  const dispatch = useAppDispatch();
+  const pomodoroTime: number =
+    useAppSelector<number>((state) => state.timerSlice.pomodoroTime) * 60;
 
-  const [count, setCount] = React.useState(defaultTime);
+  const shortBreakTime: number =
+    useAppSelector<number>((state) => state.timerSlice.shortBreakTime) * 60;
+
+  const longBreakTime: number =
+    useAppSelector<number>((state) => state.timerSlice.longBreakTime) * 60;
+
+    //POINTER
+  const sessions: number = useAppSelector<number>(
+    (state) => state.timerSlice.sessionPointer
+  );
+
+  //REAL SESSIONS
+  const sessionsSetted: number = useAppSelector<number>(
+    (state) => state.timerSlice.sessions
+  );
+
+  const [count, setCount] = React.useState(pomodoroTime);
   const [active, setActive] = React.useState(false);
+  const [breakActive, setBreakActive] = React.useState(false);
 
   const minutes: number = React.useMemo(() => {
     return Math.floor(count / 60);
-  }, [count]);
+  }, [count, pomodoroTime]);
 
   const seconds: number = React.useMemo(() => {
     return Math.floor(count % 60);
-  }, [count]);
+  }, [count, pomodoroTime]);
 
   const toggleTimer = React.useCallback(() => {
     setActive(!active);
   }, [active]);
+
+  const resetTimer = () => {
+    setActive(false);
+    setCount(pomodoroTime);
+    setBreakActive(false);
+    dispatch(setSessions(sessionsSetted));
+    dispatch(sessionReplacer())
+  };
+
+  React.useEffect(() => {
+    setCount(pomodoroTime);
+  }, [pomodoroTime]);
 
   React.useEffect(() => {
     if (active) {
@@ -36,15 +68,28 @@ const Timer: React.FC = () => {
       }, 1000);
 
       if (count === 0) {
-        setActive(false);
-        setCount(defaultTime);
+        if (breakActive === false && sessions > 0) {
+          if (sessions === 1) {
+            setCount(longBreakTime);
+            dispatch(sessionCounter());
+          } else {
+            setCount(shortBreakTime);
+            dispatch(sessionCounter());
+          }
+          setBreakActive(true);
+        } else if (breakActive && sessions > 0) {
+          setBreakActive(false);
+          setCount(pomodoroTime);
+        } else if (sessions === 0) {
+          resetTimer();
+        }
       }
 
       return () => {
         clearInterval(interval);
       };
     }
-  }, [active, count]);
+  }, [active, count, pomodoroTime]);
 
   const [fontsLoaded] = useFonts({
     Orbitron_500Medium,
@@ -60,12 +105,6 @@ const Timer: React.FC = () => {
     return null;
   }
 
-  const resetTimer = () => {
-    setActive(false);
-    setCount(defaultTime);
-  };
-
-  //TODO: STYLE ISIMLERINI DEGISTIR
   return (
     <View style={TimerStyles.mainContainer} onLayout={() => onLayoutRootView()}>
       <View style={TimerStyles.timerContainer}>
@@ -74,19 +113,35 @@ const Timer: React.FC = () => {
           {`${String(minutes).padStart(2, '0')}`} :{' '}
           {`${String(seconds).padStart(2, '0')}`}{' '}
         </Text>
-        <CircularProgress
-          showProgressValue={false}
-          inActiveStrokeColor="#5c5c5c"
-          inActiveStrokeOpacity={0.4}
-          inActiveStrokeWidth={15}
-          activeStrokeWidth={15}
-          activeStrokeColor="#48cae4"
-          clockwise={false}
-          radius={160}
-          value={count}
-          maxValue={defaultTime}
-          progressValueColor="white"
-        ></CircularProgress>
+        {sessions > 0 ? (
+          <CircularProgress
+            showProgressValue={false}
+            inActiveStrokeColor="#5c5c5c"
+            inActiveStrokeOpacity={0.4}
+            inActiveStrokeWidth={15}
+            activeStrokeWidth={15}
+            activeStrokeColor="#48cae4"
+            clockwise={false}
+            radius={160}
+            value={count}
+            maxValue={breakActive ? shortBreakTime : pomodoroTime}
+            progressValueColor="white"
+          ></CircularProgress>
+        ) : (
+          <CircularProgress
+            showProgressValue={false}
+            inActiveStrokeColor="#5c5c5c"
+            inActiveStrokeOpacity={0.4}
+            inActiveStrokeWidth={15}
+            activeStrokeWidth={15}
+            activeStrokeColor="#48cae4"
+            clockwise={false}
+            radius={160}
+            value={count}
+            maxValue={sessions === 0 && active ? longBreakTime : pomodoroTime}
+            progressValueColor="white"
+          ></CircularProgress>
+        )}
       </View>
 
       <View style={TimerStyles.iconsContainer}>

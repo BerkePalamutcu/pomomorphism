@@ -3,12 +3,12 @@ import React from 'react';
 // import { StatusBar } from 'expo-status-bar';
 import { Provider } from 'react-redux';
 import { store } from './src/redux/store';
-import Navigation from './src/navigation/Navigation';
+import { GestureHandleWrapper } from './GestureHoc';
 
 const App = () => {
   return (
     <Provider store={store}>
-      <Navigation />
+      <GestureHandleWrapper />
     </Provider>
   );
 };
