@@ -26,7 +26,7 @@ const Navigation: React.FC = () => {
           options={{ headerShown: false }}
         />
         <Stack.Screen name="Settings" component={Settings} />
-        <Stack.Screen name="Todos" component={Todos} />
+        <Stack.Screen name="Task List" component={Todos} />
         <Stack.Screen name="Statistics" component={Statistics} />
       </Stack.Navigator>
     </NavigationContainer>

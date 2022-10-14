@@ -1,11 +1,12 @@
-import { View, Text, StyleSheet } from 'react-native';
+import { View, StyleSheet } from 'react-native';
 import React from 'react';
 import TodoList from '../components/todoList/TodoList';
-
+import TodoInput from '../components/todoInput/TodoInput';
 const Todos: React.FC = () => {
   return (
     <View style={todoListStyles.listContainer}>
       <TodoList />
+      <TodoInput />
     </View>
   );
 };
@@ -19,5 +20,6 @@ const todoListStyles = StyleSheet.create({
     borderTopWidth: 1,
     flex: 1,
     justifyContent: 'center',
+    position: 'relative',
   },
 });

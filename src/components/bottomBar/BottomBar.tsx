@@ -22,7 +22,7 @@ const BottomBar: React.FC = () => {
         <View style={BottomBarStyles.BottomBarIconsWrapper}>
           <TouchableHighlight
             onPress={() => {
-              navigation.navigate('Todos');
+              navigation.navigate('Task List');
             }}
           >
             <Icon name="list" color="#fff" size={iconSize} />
