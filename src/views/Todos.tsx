@@ -2,6 +2,7 @@ import { View, StyleSheet } from 'react-native';
 import React from 'react';
 import TodoList from '../components/todoList/TodoList';
 import TodoInput from '../components/todoInput/TodoInput';
+
 const Todos: React.FC = () => {
   return (
     <View style={todoListStyles.listContainer}>

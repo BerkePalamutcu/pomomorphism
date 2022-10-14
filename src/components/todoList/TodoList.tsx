@@ -4,21 +4,33 @@ import {
   View,
   ScrollView,
   TouchableWithoutFeedback,
+  TouchableHighlight,
 } from 'react-native';
 import React from 'react';
 import Swipeable from 'react-native-gesture-handler/Swipeable';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { toggleInputReducer } from '../../redux/slices/todoInputSlice';
+import { deleteTodo } from '../../redux/slices/todosSlice';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 
 const TodoList: React.FC = () => {
+  const [todoId, setTodoId] = React.useState('');
   const inputState = useAppSelector((state) => state.todoInputSlice.inputIsOn);
   const todoList = useAppSelector((state) => state.todosSlice.todoData);
   const dispatch = useAppDispatch();
 
+  const assignTodoRef = () => {
+    return null;
+  };
+
   const leftSwipe = () => {
     return (
-      <TouchableOpacity style={listStyles.buttonWrapper}>
+      <TouchableOpacity
+        onPress={() => {
+          dispatch(deleteTodo(todoId));
+        }}
+        style={listStyles.buttonWrapper}
+      >
         <Text style={listStyles.todoText}>Delete</Text>
       </TouchableOpacity>
     );
@@ -48,10 +60,16 @@ const TodoList: React.FC = () => {
             key={item.id}
             renderLeftActions={rightSwipe}
             renderRightActions={leftSwipe}
+            onSwipeableOpen={() => setTodoId(item.id)}
           >
-            <View style={listStyles.todoWrapper}>
-              <Text style={listStyles.todoText}>{item.todoText}</Text>
-            </View>
+            <TouchableHighlight
+              key={item.id}
+              style={listStyles.todoWrapper}
+            >
+              <Text key={item.id} style={listStyles.todoText}>
+                {item.todoText}
+              </Text>
+            </TouchableHighlight>
           </Swipeable>
         ))}
       </ScrollView>

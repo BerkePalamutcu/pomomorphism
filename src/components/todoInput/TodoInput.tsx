@@ -33,7 +33,6 @@ const TodoInput = () => {
         style={showInput ? todoInputStyles.visible : todoInputStyles.hidden}
       >
         <TextInput
-          onFocus={() => inputRef.current.focus()}
           cursorColor="black"
           onBlur={() => {
             dispatch(toggleInputReducer(false));
