@@ -1105,6 +1105,11 @@
     minimatch "^3.1.2"
     strip-json-comments "^3.1.1"
 
+"@expo-google-fonts/chakra-petch@^0.2.2":
+  version "0.2.2"
+  resolved "https://registry.yarnpkg.com/@expo-google-fonts/chakra-petch/-/chakra-petch-0.2.2.tgz#9482d60614718f9dbce3d5e0ac45ae6fa3b1c0ea"
+  integrity sha512-KGUOP8CBbMMfLNaFUKz0lOeeglRCnP5/cVWXQfDvllnN5CSn8/U6aVYYcxpT+k4iqeLylYIGRxdhu1n7seHxOQ==
+
 "@expo-google-fonts/orbitron@^0.2.2":
   version "0.2.2"
   resolved "https://registry.yarnpkg.com/@expo-google-fonts/orbitron/-/orbitron-0.2.2.tgz#f5516b08cf8fdfad1733cf9bc83d1e4b6891db3f"
@@ -4864,7 +4869,7 @@ expo-file-system@~14.1.0:
     "@expo/config-plugins" "~5.0.0"
     uuid "^3.4.0"
 
-expo-font@~10.2.1:
+expo-font@~10.2.0, expo-font@~10.2.1:
   version "10.2.1"
   resolved "https://registry.yarnpkg.com/expo-font/-/expo-font-10.2.1.tgz#c13e65e864befaa4710504096b68635c6f7e48d8"
   integrity sha512-sxy5GrdtY+Ka8Wo5wnrcFFeO6MbYC6Dris5wMLqshvVK6BneJNMUsFvwRfvVgg0TzsmMAc3Rlca2xyZ8ettinw==
