@@ -24,9 +24,12 @@ export const TimerStyles = StyleSheet.create({
   },
   timerFont: {
     fontFamily: 'Orbitron_500Medium',
-    fontSize: 50,
+    fontSize: 60,
     position: 'absolute',
     color: 'white',
+    display: 'flex',
+    justifyContent: 'center',
+    width: 280
   },
   btnContainer: {
     display: 'flex',
