@@ -14,23 +14,13 @@ import { deleteTodo } from '../../redux/slices/todosSlice';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 
 const TodoList: React.FC = () => {
-  const [todoId, setTodoId] = React.useState('');
   const inputState = useAppSelector((state) => state.todoInputSlice.inputIsOn);
   const todoList = useAppSelector((state) => state.todosSlice.todoData);
   const dispatch = useAppDispatch();
 
-  const assignTodoRef = () => {
-    return null;
-  };
-
   const leftSwipe = () => {
     return (
-      <TouchableOpacity
-        onPress={() => {
-          dispatch(deleteTodo(todoId));
-        }}
-        style={listStyles.buttonWrapper}
-      >
+      <TouchableOpacity style={listStyles.buttonWrapper}>
         <Text style={listStyles.todoText}>Delete</Text>
       </TouchableOpacity>
     );
@@ -58,14 +48,15 @@ const TodoList: React.FC = () => {
         {todoList.map((item) => (
           <Swipeable
             key={item.id}
+            overshootRight={false}
+            overshootLeft={false}
             renderLeftActions={rightSwipe}
             renderRightActions={leftSwipe}
-            onSwipeableOpen={() => setTodoId(item.id)}
+            onSwipeableOpen={() => {
+              dispatch(deleteTodo(item.id));
+            }}
           >
-            <TouchableHighlight
-              key={item.id}
-              style={listStyles.todoWrapper}
-            >
+            <TouchableHighlight key={item.id} style={listStyles.todoWrapper}>
               <Text key={item.id} style={listStyles.todoText}>
                 {item.todoText}
               </Text>
@@ -102,6 +93,7 @@ const listStyles = StyleSheet.create({
     color: 'white',
     marginTop: 10,
     padding: 20,
+    width: 160,
   },
   buttonWrapperComplete: {
     display: 'flex',

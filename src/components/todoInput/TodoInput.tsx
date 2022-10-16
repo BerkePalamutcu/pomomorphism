@@ -38,12 +38,15 @@ const TodoInput = () => {
             dispatch(toggleInputReducer(false));
           }}
           style={todoInputStyles.textInput}
+          clearTextOnFocus={true}
           ref={inputRef}
           value={inputValue}
           onChangeText={(text) => setInputValue(text)}
-          onSubmitEditing={() =>
-            dispatch(postTodo({ id: nanoid(), todoText: inputValue }))
-          }
+          onSubmitEditing={() => {
+            dispatch(postTodo({ id: nanoid(), todoText: inputValue }));
+            dispatch(toggleInputReducer(false));
+            setInputValue('');
+          }}
         />
       </View>
       <TouchableOpacity
@@ -52,13 +55,24 @@ const TodoInput = () => {
           handleInputFocus();
           dispatch(toggleInputReducer(true));
         }}
-        style={todoInputStyles.gradientStyle}
+        style={
+          showInput ? todoInputStyles.hidden : todoInputStyles.gradientStyle
+        }
       >
         <LinearGradient
           style={todoInputStyles.gradientStyle}
           colors={['#00B4DB', '#0083B0']}
         >
-          <Icon name="add" size={50} color="white" />
+          <Icon
+            onPress={() => {
+              inputRef.current.blur();
+              handleInputFocus();
+              dispatch(toggleInputReducer(true));
+            }}
+            name="add"
+            size={50}
+            color="white"
+          />
         </LinearGradient>
       </TouchableOpacity>
     </KeyboardAvoidingView>

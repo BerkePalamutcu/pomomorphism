@@ -9,10 +9,6 @@ export const TimerStyles = StyleSheet.create({
     display: 'flex',
     alignItems: 'center',
     backgroundColor: '#151414',
-    borderEndWidth: 2,
-    borderStartWidth: 2,
-    borderStartColor: 'cyan',
-    borderEndColor: 'cyan',
     shadowColor: '#0c72ab',
     elevation: 60,
     position: 'relative',
@@ -23,13 +19,15 @@ export const TimerStyles = StyleSheet.create({
     alignItems: 'center',
   },
   timerFont: {
-    fontFamily: 'Orbitron_500Medium',
-    fontSize: 60,
+    fontFamily: 'ChakraPetch_500Medium',
+    fontSize: 70,
     position: 'absolute',
     color: 'white',
     display: 'flex',
     justifyContent: 'center',
-    width: 280
+    letterSpacing: 1,
+    paddingVertical: 50,
+    width: 255
   },
   btnContainer: {
     display: 'flex',

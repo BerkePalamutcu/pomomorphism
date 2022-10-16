@@ -1,13 +1,21 @@
 import React from 'react';
 import { View, TouchableHighlight, Text } from 'react-native';
 import { Icon } from '@rneui/base';
-import { Orbitron_500Medium, useFonts } from '@expo-google-fonts/orbitron';
 import { TimerStyles } from './timer.styles';
 import CircularProgress from 'react-native-circular-progress-indicator';
 import { LinearGradient } from 'expo-linear-gradient';
 import * as SplashScreen from 'expo-splash-screen';
 import { useAppSelector, useAppDispatch } from '../../redux/hooks';
-import { sessionCounter, setSessions, sessionReplacer } from '../../redux/slices/timerSlice';
+import {
+  sessionCounter,
+  setSessions,
+  sessionReplacer,
+} from '../../redux/slices/timerSlice';
+import { changeSession } from '../../redux/slices/sessionSlice';
+import {
+  ChakraPetch_500Medium,
+  useFonts,
+} from '@expo-google-fonts/chakra-petch';
 
 SplashScreen.preventAutoHideAsync();
 
@@ -23,7 +31,11 @@ const Timer: React.FC = () => {
   const longBreakTime: number =
     useAppSelector<number>((state) => state.timerSlice.longBreakTime) * 60;
 
-    //POINTER
+  const currentSession: string = useAppSelector<string>(
+    (state) => state.sessionSlice.currentSession
+  );
+
+  //POINTER
   const sessions: number = useAppSelector<number>(
     (state) => state.timerSlice.sessionPointer
   );
@@ -54,7 +66,8 @@ const Timer: React.FC = () => {
     setCount(pomodoroTime);
     setBreakActive(false);
     dispatch(setSessions(sessionsSetted));
-    dispatch(sessionReplacer())
+    dispatch(sessionReplacer());
+    dispatch(changeSession('Pomodoro'));
   };
 
   React.useEffect(() => {
@@ -72,14 +85,17 @@ const Timer: React.FC = () => {
           if (sessions === 1) {
             setCount(longBreakTime);
             dispatch(sessionCounter());
+            dispatch(changeSession('Long Break'));
           } else {
             setCount(shortBreakTime);
             dispatch(sessionCounter());
+            dispatch(changeSession('Short Break'));
           }
           setBreakActive(true);
         } else if (breakActive && sessions > 0) {
           setBreakActive(false);
           setCount(pomodoroTime);
+          dispatch(changeSession('Pomodoro'));
         } else if (sessions === 0) {
           resetTimer();
         }
@@ -92,7 +108,7 @@ const Timer: React.FC = () => {
   }, [active, count, pomodoroTime]);
 
   const [fontsLoaded] = useFonts({
-    Orbitron_500Medium,
+    ChakraPetch_500Medium,
   });
 
   const onLayoutRootView = React.useCallback(async () => {
@@ -120,7 +136,7 @@ const Timer: React.FC = () => {
             inActiveStrokeOpacity={0.4}
             inActiveStrokeWidth={15}
             activeStrokeWidth={15}
-            activeStrokeColor="#48cae4"
+            activeStrokeColor={currentSession === 'Pomodoro' ? 'red' : 'green'}
             clockwise={false}
             radius={160}
             value={count}
